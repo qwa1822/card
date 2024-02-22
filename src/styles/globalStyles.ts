@@ -6,6 +6,10 @@ export default css`
   html,
   body,
   ${colorPalatte} div,
+  :root {
+    --dimmed-zindex: 10;
+    --alert-zindex: 11;
+  }
   span,
   applet,
   object,
