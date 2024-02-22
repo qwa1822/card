@@ -131,4 +131,8 @@ export default css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  a {
+    color: inherit;
+    text-decoration: inherit; /* no underline */
+  }
 `

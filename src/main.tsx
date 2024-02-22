@@ -5,12 +5,22 @@ import './index.css'
 import { Global } from '@emotion/react'
 import globalStyles from 'styles/globalStyles.ts'
 import { AlertContextProvider } from 'contexts/AlertContext.tsx'
+import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
+const client = new QueryClient({
+  defaultOptions: {},
+})
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Global styles={globalStyles} />
-    <AlertContextProvider>
-      <App />
-    </AlertContextProvider>
+    <BrowserRouter>
+      <Global styles={globalStyles} />
+
+      <QueryClientProvider client={client}>
+        <AlertContextProvider>
+          <App />
+        </AlertContextProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
   </React.StrictMode>,
 )
