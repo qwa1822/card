@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { colors } from 'styles/colorPalatte'
 import { getCards } from 'components/remote/card'
+// Import Swiper styles
+import 'swiper/css'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
 function AdBanners() {
   const { data } = useQuery(['adBanners'], () => getAddBanners())
 
@@ -14,16 +18,20 @@ function AdBanners() {
 
   return (
     <Container>
-      {data?.map((banner) => {
-        return (
-          <Link to="/">
-            <Flex direction="column" css={bannerContainerStlyes}>
-              <Text bold={true}>{banner.title}</Text>
-              <Text typography="t7">{banner.description}</Text>
-            </Flex>
-          </Link>
-        )
-      })}
+      <Swiper spaceBetween={8}>
+        {data?.map((banner) => {
+          return (
+            <SwiperSlide key={banner.id}>
+              <Link to="/">
+                <Flex direction="column" css={bannerContainerStlyes}>
+                  <Text bold={true}>{banner.title}</Text>
+                  <Text typography="t7">{banner.description}</Text>
+                </Flex>
+              </Link>
+            </SwiperSlide>
+          )
+        })}
+      </Swiper>
     </Container>
   )
 }
