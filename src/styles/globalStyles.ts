@@ -6,6 +6,10 @@ export default css`
   html,
   body,
   ${colorPalatte} div,
+  :root {
+    --dimmed-zindex: 10;
+    --alert-zindex: 11;
+  }
   span,
   applet,
   object,
@@ -126,5 +130,9 @@ export default css`
   table {
     border-collapse: collapse;
     border-spacing: 0;
+  }
+  a {
+    color: inherit;
+    text-decoration: inherit; /* no underline */
   }
 `
