@@ -7,6 +7,7 @@ import globalStyles from 'styles/globalStyles.ts'
 import { AlertContextProvider } from 'contexts/AlertContext.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import AuthGuard from 'components/auth/AuthGuard.tsx'
 
 const client = new QueryClient({
   defaultOptions: {},
@@ -18,7 +19,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
       <QueryClientProvider client={client}>
         <AlertContextProvider>
-          <App />
+          <AuthGuard>
+            <App />
+          </AuthGuard>
         </AlertContextProvider>
       </QueryClientProvider>
     </BrowserRouter>

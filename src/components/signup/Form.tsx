@@ -9,13 +9,13 @@ import { values } from 'lodash'
 
 export interface FormInterface {
   password: string
-  repassword: string
-  name: string
+  repassword?: string
+  name?: string
   email: string
   error: {
-    name: string
+    name?: string
     password: string
-    repassword: string
+    repassword?: string
     email: string
   }
 }
