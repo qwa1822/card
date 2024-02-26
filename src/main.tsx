@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+import { RecoilRoot } from 'recoil'
+
 import { Global } from '@emotion/react'
 import globalStyles from 'styles/globalStyles.ts'
 import { AlertContextProvider } from 'contexts/AlertContext.tsx'
@@ -17,13 +19,15 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <Global styles={globalStyles} />
 
-      <QueryClientProvider client={client}>
-        <AlertContextProvider>
-          <AuthGuard>
-            <App />
-          </AuthGuard>
-        </AlertContextProvider>
-      </QueryClientProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={client}>
+          <AlertContextProvider>
+            <AuthGuard>
+              <App />
+            </AuthGuard>
+          </AlertContextProvider>
+        </QueryClientProvider>
+      </RecoilRoot>
     </BrowserRouter>
   </React.StrictMode>,
 )

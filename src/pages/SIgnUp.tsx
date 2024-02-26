@@ -5,8 +5,10 @@ import { collection, doc, setDoc } from 'firebase/firestore'
 import React from 'react'
 import { auth, store } from 'firebase'
 import { COLLECTIONS } from 'constants'
+import { useNavigate } from 'react-router-dom'
 
 export default function SignUpPage() {
+  const navigate = useNavigate()
   const handleSubmit = async (formValues: FormInterface) => {
     const { email, password, name } = formValues
 
@@ -27,6 +29,8 @@ export default function SignUpPage() {
     await setDoc(doc(collection(store, COLLECTIONS.USER), user.uid), newUser)
 
     // Todo : 로그인 처리
+
+    navigate('/')
   }
 
   return (

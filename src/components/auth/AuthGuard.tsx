@@ -1,20 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
+import { useSetRecoilState } from 'recoil'
 import { auth } from 'firebase'
-// 인증처리
+import { userAtom } from 'atoms/user'
+import { User } from 'atoms/userType'
+
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const [initialize, setInitialize] = useState(false)
-  // if(인증처리가안도ㅒㅆ어){
-  //   return null
-  // }
+  const setUser = useSetRecoilState<User | null>(userAtom)
 
-  // 한번거쳤다왔다? 인증처리가 됐다
-  onAuthStateChanged(auth, (user) => {
-    setInitialize(true)
-  })
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user !== null) {
+        setUser({
+          uid: user.uid,
+          email: user.email ?? '',
+          displayName: user.displayName ?? '',
+        })
+      } else {
+        setUser(null)
+      }
+      setInitialize(true)
+    })
 
-  // 아직 거치지않았다
-  if (initialize === false) {
+    // 컴포넌트가 unmount될 때 unsubscribe 함수를 호출하여 메모리 누수를 방지합니다.
+    return () => unsubscribe()
+  }, []) // [] 안에 값이 비어 있으므로, 컴포넌트가 mount될 때와 unmount될 때에만 useEffect가 실행됩니다.
+
+  if (!initialize) {
     return <div>인증처리중...로딩중...</div>
   }
 
