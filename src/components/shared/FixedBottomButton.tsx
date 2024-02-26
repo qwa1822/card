@@ -5,7 +5,15 @@ import { createPortal } from 'react-dom'
 import Button from './Button'
 import { colors } from 'styles/colorPalatte'
 
-function FixedBottomButton({ label }: { label: string; onClick: () => void }) {
+function FixedBottomButton({
+  label,
+  disabled,
+  onClick,
+}: {
+  label: string
+  onClick: () => void
+  disabled?: boolean
+}) {
   const $portal = document.getElementById('root-portal')
 
   if ($portal === null) {
@@ -13,7 +21,13 @@ function FixedBottomButton({ label }: { label: string; onClick: () => void }) {
   }
   return createPortal(
     <Container>
-      <Button size="medium" css={buttonStyles} full={true} onClick={onclick}>
+      <Button
+        size="medium"
+        disabled={disabled}
+        css={buttonStyles}
+        full={true}
+        onClick={onClick}
+      >
         {label}
       </Button>
     </Container>,

@@ -11,6 +11,7 @@ function CardListAddButton() {
 
     card_list.forEach((card: any) => {
       // doc문서에 CARD컬렉션에 접근하겠다
+      // 임의로 id지정
       const docRef = doc(collection(store, COLLECTIONS.CARD))
 
       // 이문서에 card를 배치하면서 접근
