@@ -6,7 +6,8 @@ import {
   limit,
   query,
   startAfter,
-  orderBy, // orderBy 함수 추가
+  orderBy,
+  doc, // orderBy 함수 추가
 } from 'firebase/firestore'
 import { store } from 'firebase'
 
@@ -40,4 +41,14 @@ export async function getCards(pageParam?: QuerySnapshot<Card>) {
   }))
 
   return { items, lastVisible }
+}
+
+export async function getCard(id: string) {
+  // id를 가진 문서를 찾아서 가지고온다
+  const snapshot = await getDoc(doc(store, COLLECTIONS.CARD, id))
+
+  return {
+    id,
+    ...(snapshot.data() as Card),
+  }
 }

@@ -5,7 +5,10 @@ import { getCards } from 'components/remote/card'
 import { useQuery, useInfiniteQuery } from 'react-query'
 import { useCallback } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Badge from 'components/shared/Badge'
+import { useNavigate } from 'react-router-dom'
 function CardList() {
+  const navigate = useNavigate()
   // 첫번쨰는 키값 , 두번째는  pagepara을 받을수있고,
   // 세번째는 nextPageParms
   const {
@@ -48,21 +51,26 @@ function CardList() {
         loader={<></>}
         next={LoadMore}
       >
-        {cards?.map((card, idx) => {
-          return (
-            <ListRow
-              contents={
-                <ListRow.Texts
-                  title={`${idx + 1}위`}
-                  subTitle={card.name}
-                ></ListRow.Texts>
-              }
-              left={<div>Left</div>}
-              right={card.payback !== null ? <div>{card.payback}</div> : null}
-              withArrow={true}
-            />
-          )
-        })}
+        <ul>
+          {cards?.map((card, idx) => {
+            return (
+              <ListRow
+                contents={
+                  <ListRow.Texts
+                    title={`${idx + 1}위`}
+                    subTitle={card.name}
+                  ></ListRow.Texts>
+                }
+                left={<div>Left</div>}
+                right={
+                  card.payback !== null ? <Badge label={card.payback} /> : null
+                }
+                withArrow={true}
+                onClick={() => navigate(`/card/${card.id}`)}
+              />
+            )
+          })}
+        </ul>
       </InfiniteScroll>
     </div>
   )

@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@types/lodash": "^4.14.202",
     "firebase": "^10.8.0",
+    "framer-motion": "^11.0.6",
     "lodash": "^4.17.21",
     "path": "^0.12.7",
     "react": "^18.2.0",
