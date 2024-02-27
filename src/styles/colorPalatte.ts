@@ -8,6 +8,7 @@ export const colorPalatte = css`
     --white: #fff;
     --black: #212121;
     --grey: #f0efef;
+    --gray-100: #c0c4c7;
   }
 `
 
@@ -18,6 +19,7 @@ export const colors = {
   white: `var(--white)`,
   black: `var(--black)`,
   gray: `var(--grey)`,
+  gray100: `var(--gray-100)`,
 }
 
 export type Colors = keyof typeof colors

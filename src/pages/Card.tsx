@@ -1,15 +1,17 @@
 import { getCard, getCards } from 'components/remote/card'
 import ListRow from 'components/shared/ListRow'
 import Top from 'components/shared/Top'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { FaCheck } from 'react-icons/fa'
 import FixedBottomButton from 'components/shared/FixedBottomButton'
 import Flex from 'components/shared/Flex'
 import { Text } from 'components/shared/Text'
 import { css } from '@emotion/react'
 import { motion } from 'framer-motion'
+import useUser from 'hooks/auth/useUser'
+import { useAlertContext } from 'contexts/AlertContext'
 interface CardData {
   name: string
   corpName: string
@@ -21,6 +23,11 @@ interface CardData {
 }
 
 export default function CardPage() {
+  const navigate = useNavigate()
+
+  const user = useUser()
+
+  const { open } = useAlertContext()
   const { id = '' } = useParams()
   const { data } = useQuery<CardData>(['card', id], () => getCard(id), {
     enabled: id !== '',
@@ -77,7 +84,12 @@ export default function CardPage() {
           <Text typography="t7">{removeHtmlTags(promotion.terms)}</Text>
         </Flex>
       ) : null}
-      <FixedBottomButton label="신청하기" onClick={() => {}} />
+      <FixedBottomButton
+        label="신청하기"
+        onClick={() => {
+          navigate(`/apply/${id}`)
+        }}
+      />
     </div>
   )
 }
